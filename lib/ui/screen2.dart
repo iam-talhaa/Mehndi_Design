@@ -116,24 +116,22 @@ class _Screen2State extends State<Screen2> {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: 100,
-                              ),
                               Center(
                                   child: InteractiveViewer(
-                                clipBehavior: Clip.none,
                                 boundaryMargin: const EdgeInsets.all(8.0),
                                 minScale: 1.0,
                                 maxScale: 4.0,
-                                child: Image.asset(
-                                  images[index],
-                                  height: 550,
-                                  width: 400,
-                                  fit: BoxFit.fitWidth,
+                                child: Container(
+                                  child: Image.asset(
+                                    images[index],
+                                    height: 300,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               )),
                               SizedBox(
-                                height: 40,
+                                height: 10,
                               ),
                               Row(
                                 mainAxisAlignment:
