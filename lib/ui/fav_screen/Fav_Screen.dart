@@ -9,43 +9,66 @@ class Fav_Screen extends StatefulWidget {
 }
 
 class _Fav_ScreenState extends State<Fav_Screen> {
-  bool isFavorite = false;
+  final List<String> items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'Item 9',
+    'Item 10'
+  ];
+  final Set<String> favorites = <String>{};
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _loadFavorite();
+    _loadFavorites();
   }
 
-  Future<void> _loadFavorite() async {
+  Future<void> _loadFavorites() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final savedFavorites = prefs.getStringList('favorites') ?? [];
+    setState(() {
+      favorites.addAll(savedFavorites);
+    });
+  }
+
+  Future<void> _toggleFavorite(String item) async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      isFavorite = prefs.getBool('isFavorite') ?? false;
+      if (favorites.contains(item)) {
+        favorites.remove(item);
+      } else {
+        favorites.add(item);
+      }
+      prefs.setStringList('favorites', favorites.toList());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _toggleFavorite() async {
-      final prefs = await SharedPreferences.getInstance();
-      setState(() {
-        isFavorite = !isFavorite;
-        prefs.setBool('isFavorite', isFavorite);
-        print(isFavorite);
-      });
-    }
-
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (BuildContext context, index) {
-                  return;
-                }),
-          )
-        ],
+      appBar: AppBar(
+        title: const Text('Favorites'),
+      ),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          final isFavorite = favorites.contains(item);
+          return ListTile(
+            title: Text(item),
+            trailing: IconButton(
+              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+              onPressed: () => _toggleFavorite(item),
+            ),
+          );
+        },
       ),
     );
   }
