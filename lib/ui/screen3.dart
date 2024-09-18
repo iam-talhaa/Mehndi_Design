@@ -107,19 +107,19 @@ class _Screen3State extends State<Screen3> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 100,
+                                height: 10,
                               ),
                               Center(
                                   child: InteractiveViewer(
                                 clipBehavior: Clip.none,
                                 boundaryMargin: const EdgeInsets.all(8.0),
-                                minScale: 1.0,
-                                maxScale: 4.0,
+                                minScale: .5,
+                                maxScale: 5.0,
                                 child: Image.asset(
                                   front[index],
                                   height: 550,
-                                  width: 400,
-                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               )),
                               SizedBox(

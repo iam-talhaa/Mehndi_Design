@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mehndi_app/ui/Splash_screen/Splash_Screen.dart';
+import 'package:mehndi_app/ui/fav_screen/Fav_Screen.dart';
 import 'package:mehndi_app/ui/screen2.dart';
 import 'package:mehndi_app/ui/screen3.dart';
 import 'package:mehndi_app/ui/screen4.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Fav_Screen(),
     );
   }
 }

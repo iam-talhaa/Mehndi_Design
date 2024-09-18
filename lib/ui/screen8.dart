@@ -141,7 +141,7 @@ class _Screen8State extends State<Screen8> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 100,
+                                height: 10,
                               ),
                               Center(
                                   child: InteractiveViewer(
@@ -152,8 +152,8 @@ class _Screen8State extends State<Screen8> {
                                 child: Image.asset(
                                   tikki[index],
                                   height: 550,
-                                  width: 400,
-                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               )),
                               SizedBox(

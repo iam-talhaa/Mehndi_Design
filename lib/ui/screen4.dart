@@ -105,7 +105,7 @@ class _Screen4State extends State<Screen4> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 100,
+                                height: 10,
                               ),
                               Center(
                                   child: InteractiveViewer(
@@ -116,8 +116,8 @@ class _Screen4State extends State<Screen4> {
                                 child: Image.asset(
                                   bridal[index],
                                   height: 550,
-                                  width: 400,
-                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               )),
                               SizedBox(

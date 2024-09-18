@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Screen2 extends StatefulWidget {
   const Screen2({super.key});
@@ -10,6 +11,31 @@ class Screen2 extends StatefulWidget {
 }
 
 class _Screen2State extends State<Screen2> {
+  bool isFavorite = false;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SetData();
+  }
+
+  Future<void> Favourite() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorite = !isFavorite;
+      prefs.setBool('isFavorite', isFavorite);
+      print(isFavorite);
+    });
+  }
+
+  Future<void> SetData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorite = prefs.getBool('isFavorite') ?? false;
+    });
+  }
+
+  List<String> Fav_list = [];
+
   List<String> images = [
     'assets/pictures/back (20).jpg',
     'assets/pictures/back (15).jpg',
@@ -66,6 +92,7 @@ class _Screen2State extends State<Screen2> {
     'assets/pictures/back (35).jpg',
     'assets/pictures/back (36).jpg',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,17 +143,24 @@ class _Screen2State extends State<Screen2> {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SizedBox(
+                                height: 10,
+                              ),
                               Center(
                                   child: InteractiveViewer(
                                 boundaryMargin: const EdgeInsets.all(8.0),
-                                minScale: 1.0,
-                                maxScale: 4.0,
-                                child: Container(
-                                  child: Image.asset(
-                                    images[index],
-                                    height: 300,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                minScale: 0.5,
+                                maxScale: 5.0,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    color: Colors.red,
+                                    child: Image.asset(
+                                      images[index],
+                                      height: 550,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               )),
@@ -142,10 +176,29 @@ class _Screen2State extends State<Screen2> {
                                     color: Colors.white,
                                     size: 30,
                                   ),
-                                  Icon(
-                                    Icons.favorite_outline,
-                                    color: Colors.white,
-                                    size: 30,
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (Fav_list.contains(
+                                          images[index].toString())) {
+                                        Fav_list.remove(
+                                            images[index].toString());
+                                      } else {
+                                        Fav_list.add(images[index].toString());
+                                      }
+                                      print(Fav_list);
+                                      setState(() {
+                                        Favourite();
+                                      });
+                                    },
+                                    child: Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_outline,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : Colors.white,
+                                      size: 30,
+                                    ),
                                   ),
                                   Icon(
                                     Icons.swap_horiz,

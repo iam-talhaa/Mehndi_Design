@@ -124,7 +124,7 @@ class _Screen9State extends State<Screen9> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 100,
+                                height: 10,
                               ),
                               Center(
                                   child: InteractiveViewer(
@@ -135,8 +135,8 @@ class _Screen9State extends State<Screen9> {
                                 child: Image.asset(
                                   eid[index],
                                   height: 550,
-                                  width: 400,
-                                  fit: BoxFit.fitWidth,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               )),
                               SizedBox(
